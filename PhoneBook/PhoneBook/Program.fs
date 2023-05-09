@@ -4,6 +4,7 @@ open System
 open PhoneBookFunctions
 
 let firstStart () = 
+    printfn "Phone Book Application"
     printfn "What would you like to do?
     0 - exit
     1 - add record (name and phone)
@@ -13,34 +14,47 @@ let firstStart () =
     5 - save data to the file
     6 - read data from file"
 
-let rec processing (phoneBook: PhoneNumber list) = 
+let rec processing (phoneBook: PhoneBook) = 
     printfn "\nCommand code: "
     let code = Console.ReadLine()
     match code with
-    | "0" -> ()
-    | "1" -> 
-        let record = readRecord()
-        addRecord record phoneBook |> processing 
-    | "2" -> 
-        let name = readData "name"
-        printfn "Found: "
-        findNumber phoneBook name |> printList
+    | "0" ->
+        printfn "Exiting..."
+    | "1" ->
+        let record = phoneBook.readRecord() |> Async.AwaitTask |> Async.RunSynchronously 
+        do phoneBook.addRecord record |> Async.AwaitTask |> Async.RunSynchronously
+        printfn "Record added."
         processing phoneBook
-    | "3" -> 
-        let number = readData "number"
-        printfn $"Found: {findName phoneBook number}"
+    | "2" ->
+        let message = phoneBook.readData "name" |> Async.AwaitTask |> Async.RunSynchronously
+        let numbers = phoneBook.findNumber message |> Async.AwaitTask |> Async.RunSynchronously
+        printfn $"Found: {numbers}"
+        processing phoneBook
+    | "3" ->
+        let number = phoneBook.readData "number" |> Async.AwaitTask |> Async.RunSynchronously
+        let name =  phoneBook.findName number |> Async.AwaitTask |> Async.RunSynchronously
+        printfn $"Found: {name}"
         processing phoneBook
     | "4" -> 
-        printList phoneBook
+        do phoneBook.printFullList |> Async.AwaitTask |> Async.RunSynchronously
         processing phoneBook
     | "5" ->
-        readData "file path" |> printToFile phoneBook
+        let path =  phoneBook.readData "file path" |> Async.AwaitTask |> Async.RunSynchronously 
+        do phoneBook.printToFile path |> Async.AwaitTask |> Async.RunSynchronously 
         processing phoneBook
     | "6" ->
-        readData "file path" |> readFromFile |> processing
+        let path =  phoneBook.readData "file path" |> Async.AwaitTask |> Async.RunSynchronously 
+        let newBook = phoneBook.readFromFile path |> Async.AwaitTask |> Async.RunSynchronously
+        PhoneBook newBook |> processing 
     | _ -> 
         printfn "Incorrect command"
         processing phoneBook
 
-firstStart()
-processing []
+
+// Entry point
+[<EntryPoint>]
+let main _ =
+    printfn "Phone Book Application"
+    PhoneBook [] |> processing
+    0
+// firstStart()
