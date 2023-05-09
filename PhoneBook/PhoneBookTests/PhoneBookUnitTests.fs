@@ -41,5 +41,5 @@ let ``Test for printFullList`` () =
     System.Console.SetOut(output)
     phoneBook.printFullList |> Async.AwaitTask |> Async.RunSynchronously
     let printedOutput = output.ToString().Trim()
-    Assert.AreEqual("{ Name = \"Johnny\"\n  Number = \"1234567890\" }\r\n{ Name = \"Jane\"\n  Number = \"9876543210\" }", printedOutput)
+    Assert.AreEqual("{ Name = \"Johnny\"\n  Number = \"1234567890\" }\n{ Name = \"Jane\"\n  Number = \"9876543210\" }", printedOutput)
     
