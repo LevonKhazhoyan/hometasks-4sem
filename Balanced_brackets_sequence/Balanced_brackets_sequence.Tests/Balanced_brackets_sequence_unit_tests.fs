@@ -9,5 +9,5 @@ open BalanceChecking
 [<TestCase("(()]", false)>]
 [<TestCase("{()(())[]}", true)>]
 [<TestCase(")}})[]", false)>]
-let Test1 (string: string, result: bool) =
-    checkBalance (Seq.toList string) |> should equal result
+let Tests (string: string, result: bool) =
+    checkBalance string |> should equal result
