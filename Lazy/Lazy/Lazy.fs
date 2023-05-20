@@ -22,7 +22,7 @@ type ConcurrentLazy<'a>(supplier: unit -> 'a) =
     let locker = obj ()
     [<VolatileField>]
     let mutable result = None
-    
+
     interface ILazy<'a> with
         member this.Get() =
             if result.IsNone then
