@@ -1,4 +1,6 @@
-﻿open System
+﻿module Crawler
+
+open System
 open System.Collections.Generic
 open System.IO
 open System.Text.RegularExpressions
@@ -39,14 +41,14 @@ let searchClassInstancesAsync directoryPath =
         }
 
     async {
-        let! results = searchAsync()
-        for item in results do
-            printfn $"%s{item}"
+        return! searchAsync()
     }
+    
 [<EntryPoint>]
 let main _ =
     let directoryName = Console.ReadLine()
     async {
-        do! searchClassInstancesAsync directoryName
+        let! results = searchClassInstancesAsync directoryName
+        results |> Seq.iter (printfn "%s")
     } |> Async.RunSynchronously
     0
