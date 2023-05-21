@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PowerSeries", "PowerSeries\PowerSeries.fsproj", "{ADB591CD-5376-451C-8B3A-279E7BF7FDBA}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PowerSeriesTests", "PowerSeriesTests\PowerSeriesTests.fsproj", "{0F6316A9-1975-46B6-B095-FA2C1DE59AEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADB591CD-5376-451C-8B3A-279E7BF7FDBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADB591CD-5376-451C-8B3A-279E7BF7FDBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADB591CD-5376-451C-8B3A-279E7BF7FDBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADB591CD-5376-451C-8B3A-279E7BF7FDBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F6316A9-1975-46B6-B095-FA2C1DE59AEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F6316A9-1975-46B6-B095-FA2C1DE59AEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F6316A9-1975-46B6-B095-FA2C1DE59AEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F6316A9-1975-46B6-B095-FA2C1DE59AEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
