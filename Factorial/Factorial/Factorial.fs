@@ -1,7 +1,7 @@
 ﻿module FactorialFunc
 
 let factorial n =
-    if n < 0 then failwith "Expected non-negative number"
+    if n < 0 then failwith "Expected non-negative input"
     let rec loop acc n =
         match n with
         | 0 | 1 -> acc  

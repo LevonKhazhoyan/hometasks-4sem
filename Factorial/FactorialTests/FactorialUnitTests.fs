@@ -24,4 +24,4 @@ type facTests() =
 
     [<Test>]
     member this.failedTest () =
-        (fun () -> factorial -3 |> ignore) |>  should (throwWithMessage "Expected non-negative n") typeof<System.Exception>
+        (fun () -> factorial -3 |> ignore) |>  should (throwWithMessage "Expected non-negative input") typeof<System.Exception>
