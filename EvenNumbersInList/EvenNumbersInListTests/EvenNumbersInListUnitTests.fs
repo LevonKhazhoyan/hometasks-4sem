@@ -1,8 +1,13 @@
 module EvenNumbersInListTests
 
+open FsCheck
 open NUnit.Framework
 open EvenNumbersInListFunc
 open FsUnit
+
+type EvenNumbersProperties =
+    static member ``map equivalent to filter`` (lst: list<int>) = evenNumbersInList lst = evenNumbersInList' lst
+    static member ``filter equivalent to fold`` (lst: list<int>) = evenNumbersInList' lst = evenNumbersInList'' lst
 
 [<TestFixture>]
 type evenNumbersInListTests() =
@@ -20,9 +25,9 @@ type evenNumbersInListTests() =
         |]
 
     [<TestCaseSource("TestData")>]
-    member this.successfulTestsForAllFunctions (testData: int list * int) =
+    member this.testsForMapImplementation (testData: int list * int) =
         let lst, result = testData
         (evenNumbersInList lst) |> should equal result
-        (evenNumbersInList' lst) |> should equal result
-        (evenNumbersInList'' lst) |> should equal result
 
+    [<Test>]
+    member this.checkForEquivalency () = Check.QuickAll<EvenNumbersProperties>()
