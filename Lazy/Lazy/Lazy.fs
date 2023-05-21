@@ -6,7 +6,6 @@ open System.Threading
 type ILazy<'a> =
     abstract member Get : unit -> 'a
 
-/// SingleThreadedLazy that implements ILazy
 type SingleThreadedLazy<'a>(supplier: unit -> 'a) =
     let mutable result = None
 
@@ -17,8 +16,7 @@ type SingleThreadedLazy<'a>(supplier: unit -> 'a) =
 
             result.Value
 
-/// ConcurrentLazy that implements ILazy
-type ConcurrentLazy<'a>(supplier: unit -> 'a) =
+type BlockingLazy<'a>(supplier: unit -> 'a) =
     let locker = obj ()
     [<VolatileField>]
     let mutable result = None
@@ -26,15 +24,13 @@ type ConcurrentLazy<'a>(supplier: unit -> 'a) =
     interface ILazy<'a> with
         member this.Get() =
             if result.IsNone then
-                lock
-                    locker
+                lock locker
                     (fun _ ->
                         if result.IsNone then
                             result <- Some(supplier ()))
 
             result.Value
 
-/// LockFreeLazy that implements ILazy
 type LockFreeLazy<'a>(supplier: unit -> 'a) =
     let mutable result = None
 
