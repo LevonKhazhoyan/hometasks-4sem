@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Factorial", "Factorial\Factorial.fsproj", "{14924181-5FE2-49BD-9E28-49EB3E29EDC3}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FactorialTests", "FactorialTests\FactorialTests.fsproj", "{9696E661-8CFF-402C-A2C5-1BE9DA25CADC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14924181-5FE2-49BD-9E28-49EB3E29EDC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14924181-5FE2-49BD-9E28-49EB3E29EDC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14924181-5FE2-49BD-9E28-49EB3E29EDC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14924181-5FE2-49BD-9E28-49EB3E29EDC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9696E661-8CFF-402C-A2C5-1BE9DA25CADC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9696E661-8CFF-402C-A2C5-1BE9DA25CADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9696E661-8CFF-402C-A2C5-1BE9DA25CADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9696E661-8CFF-402C-A2C5-1BE9DA25CADC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
