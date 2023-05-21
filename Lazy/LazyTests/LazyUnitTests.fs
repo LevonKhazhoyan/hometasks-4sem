@@ -1,11 +1,16 @@
 module LazyTests
 
 open System
+open System.Collections.Generic
 open System.Threading
 open NUnit.Framework
 open Lazy
 open FsUnit
 
+type testObject(o) =
+        
+    member this.Increment() =
+        o + 1
     
 [<Test>]
 let NaiveLazyShouldReturnExpectedString() =
@@ -47,18 +52,18 @@ let ConcurrentLazyShouldReturnExpectedString() =
     concurrentChecker.Get() |> should equal string 
 
 [<Test>]    
-
 let CheckThatNaiveLazyAlwaysReturnsFirstCalculation() =
 
     // mutable in order to create object that will be located in heap
     let mutable x = 0
-    let increment () = x <- x + 1
+    let increment () =
+        Stack<int>()
     
     let naiveLazy supplier = SingleThreadedLazy supplier :> ILazy<'a>
 
     let naive = naiveLazy(increment)
 
-    Object.ReferenceEquals(naive.Get(), naive.Get()) |> Assert.IsTrue
+    Assert.AreSame(naive.Get, naive.Get)
 
 [<Test>]    
 let CheckThatLockFreeLazyAlwaysReturnsFirstCalculation() =
@@ -67,11 +72,14 @@ let CheckThatLockFreeLazyAlwaysReturnsFirstCalculation() =
     
     let mutable x = 0
     
-    let increment () = x <- x + 1
+    let increment() =
+        x <- x + 1
+        x
         
     let lockFree = lockFreeLazy(increment)
      
-    Object.ReferenceEquals(lockFree.Get(), lockFree.Get()) |> Assert.IsTrue   
+    lockFree.Get() |> should equal 1
+    Object.ReferenceEquals(lockFree.Get(), lockFree.Get()) |> should equal true
 
 [<Test>]
 let CheckThatConcurrentLazyAlwaysReturnsFirstCalculation() =
@@ -80,22 +88,19 @@ let CheckThatConcurrentLazyAlwaysReturnsFirstCalculation() =
     
     let mutable x = 0
     let mutable p = 0
+
     let incrementValue() =
         x <- x + 1
-        Interlocked.Increment(ref p) |> ignore
+        p <- Interlocked.Increment(&p)
         x
 
     let concurrent = concurrentLazy(incrementValue)
     
-    let task = async {
-        concurrent.Get()
-        |> should equal 1
-    }
+    [ for _ in 0 .. 2 do async {
     
-    Seq.init 2 (fun _ -> task)
-    |> Async.Parallel
-    |> Async.RunSynchronously
-    |> ignore
+        concurrent.Get() |> should equal 1
+
+    } ] |> Async.Parallel |> Async.RunSynchronously |> ignore
 
 [<Test>]
 let CheckConcurrencyInConcurrentLazy() =
@@ -103,7 +108,9 @@ let CheckConcurrencyInConcurrentLazy() =
     let concurrentLazy supplier = ConcurrentLazy supplier :> ILazy<'a>
 
     let mutable x = 0
-    let random() = Interlocked.Increment(ref x) 
+    let random() =
+        Interlocked.Increment(ref x) |> ignore
+        x
 
     let concurrent = concurrentLazy(random)
 
