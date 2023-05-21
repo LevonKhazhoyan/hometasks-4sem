@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FindInList", "FindInList\FindInList.fsproj", "{A8DCE558-0E9A-465D-807B-0BBAED8D1813}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FindInListTests", "FindInListTests\FindInListTests.fsproj", "{0CFCA466-89DF-406B-B83A-8C01A5EAE03E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8DCE558-0E9A-465D-807B-0BBAED8D1813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8DCE558-0E9A-465D-807B-0BBAED8D1813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8DCE558-0E9A-465D-807B-0BBAED8D1813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8DCE558-0E9A-465D-807B-0BBAED8D1813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CFCA466-89DF-406B-B83A-8C01A5EAE03E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFCA466-89DF-406B-B83A-8C01A5EAE03E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFCA466-89DF-406B-B83A-8C01A5EAE03E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFCA466-89DF-406B-B83A-8C01A5EAE03E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
