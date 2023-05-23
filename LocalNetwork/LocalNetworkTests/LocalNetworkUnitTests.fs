@@ -27,7 +27,6 @@ type NetworkTests() =
         let network = Network([|virus|])
         network.Start()
         
-        // Assert that no computers have been infected
         computer0.IsInfected |> should equal true
         computer1.IsInfected |> should equal true
         computer2.IsInfected |> should equal true
@@ -54,7 +53,6 @@ type NetworkTests() =
         let network = Network([|virus|])
         network.Start()
 
-        // Assert that no computers have been infected
         computer0.IsInfected |> should equal false
         computer1.IsInfected |> should equal true
         computer2.IsInfected |> should equal false
