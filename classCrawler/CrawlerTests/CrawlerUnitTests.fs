@@ -20,7 +20,5 @@ let ``SearchClassInstancesAsync should find class instances in files``() =
         "In file ../../../../CrawlerTests/TestFiles/PassedTests.cs instance of class Exception is created at line 52";
     ]
 
-    async {
-        let! results = searchClassInstancesAsync path
-        CollectionAssert.AreEquivalent(expectedOutput, results)
-    } |> Async.RunSynchronously
+    let results = searchClassInstancesAsync path |> Async.RunSynchronously
+    CollectionAssert.AreEquivalent(expectedOutput, results)
