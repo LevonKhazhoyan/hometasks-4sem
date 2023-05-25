@@ -52,5 +52,5 @@ let rec processing (phoneBook: PhoneBook) =
 [<EntryPoint>]
 let main _ =
     firstStart()    
-    PhoneBook [] |> processing |> Async.RunSynchronously
+    PhoneBook Set.empty |> processing |> Async.RunSynchronously
     0
