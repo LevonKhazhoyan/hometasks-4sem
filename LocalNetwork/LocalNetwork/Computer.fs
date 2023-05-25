@@ -10,9 +10,7 @@ type Computer (name: string, id: int, operationSystem: OperationSystem, isInfect
     member this.Id = id
     member this.Name = name
     member this.OperationSystem = operationSystem
-    member this.IsInfected
-        with get () = isInfected
-        and set value = isInfected <- value
+    member val IsInfected = isInfectedAtStart with get, set
     
 
     

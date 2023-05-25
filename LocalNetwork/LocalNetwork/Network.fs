@@ -3,12 +3,13 @@
 open LocalNetwork.Virus
 
 type Network (viruses: Virus[]) =
-    let mutable counterOfSteps = 0
+    let mutable stepCount = 0
     
     let rec infection viruses =
         let viruses = viruses |> Seq.filter (fun (v: Virus) -> v.AbleToInfect)
-        if Seq.isEmpty viruses then () else
-        counterOfSteps <- counterOfSteps + 1
+        if Seq.isEmpty viruses then ()
+        else
+        stepCount <- stepCount + 1
         for virus in viruses do virus.SpreadInfection()
         infection viruses
 
@@ -17,4 +18,4 @@ type Network (viruses: Virus[]) =
 
     member this.Viruses() = viruses
 
-    member this.Steps() = counterOfSteps
+    member this.Steps() = stepCount
