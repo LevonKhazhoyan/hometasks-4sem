@@ -39,11 +39,11 @@ let ConcurrentLazyShouldReturnExpectedString() =
 [<Test>]    
 let CheckThatNaiveLazyAlwaysReturnsFirstCalculation() =
 
-    let increment () =
+    let obj() =
         Object()
         
     let naiveLazy supplier = SingleThreadedLazy supplier :> ILazy<'a>
-    let naive = naiveLazy(increment)
+    let naive = naiveLazy(obj)
 
     Assert.AreSame(naive.Get(), naive.Get())
 
@@ -53,11 +53,12 @@ let CheckThatLockFreeLazyAlwaysReturnsFirstCalculation() =
     let lockFreeLazy supplier = LockFreeLazy supplier :> ILazy<'a>
     let mre = new ManualResetEvent(false)
     mre.Set() |> ignore
-    let increment() =
+    
+    let obj() =
         mre.WaitOne() |> ignore
         Object()
         
-    let lockFree = lockFreeLazy(increment)
+    let lockFree = lockFreeLazy(obj)
     
     let tasks = [
         for _ in 0 .. 100 do
@@ -65,27 +66,21 @@ let CheckThatLockFreeLazyAlwaysReturnsFirstCalculation() =
             Assert.AreSame(lockFree.Get(), lockFree.Get())
             }
         ]
-
-    let readyTasks = tasks |> Async.Parallel
+    
+    tasks |> Async.Parallel |> Async.RunSynchronously |> ignore
     mre.Set() |> ignore
-    readyTasks |> Async.RunSynchronously |> ignore
 
 [<Test>]
 let CheckThatConcurrentLazyAlwaysReturnsFirstCalculationAndDoNotEvaluateMoreThanOnce() =
 
     let concurrentLazy supplier = BlockingLazy supplier :> ILazy<'a>
-    
     let mre = new ManualResetEvent(false)
-    
     mre.Set() |> ignore
-    
     let counter = ref 0
-
     let increment() =
         mre.WaitOne() |> ignore
         Interlocked.Increment counter |> ignore
         Object()
-
     let concurrent = concurrentLazy(increment)
     
     let tasks = [
@@ -95,8 +90,7 @@ let CheckThatConcurrentLazyAlwaysReturnsFirstCalculationAndDoNotEvaluateMoreThan
             }
         ]
 
-    let readyTasks = tasks |> Async.Parallel
+    tasks |> Async.Parallel |> Async.RunSynchronously |> ignore
     mre.Set() |> ignore
-    readyTasks |> Async.RunSynchronously |> ignore
 
     counter.Value |> should equal 1
