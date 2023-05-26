@@ -67,8 +67,12 @@ let CheckThatLockFreeLazyAlwaysReturnsFirstCalculation() =
             }
         ]
     
-    tasks |> Async.Parallel |> Async.RunSynchronously |> ignore
-    mre.Set() |> ignore
+    tasks |> Async.Parallel
+    |> Async.StartAsTask
+    |> fun task ->
+        mre.Set() |> ignore
+        task.Result
+    |> ignore
 
 [<Test>]
 let CheckThatConcurrentLazyAlwaysReturnsFirstCalculationAndDoNotEvaluateMoreThanOnce() =
@@ -90,7 +94,11 @@ let CheckThatConcurrentLazyAlwaysReturnsFirstCalculationAndDoNotEvaluateMoreThan
             }
         ]
 
-    tasks |> Async.Parallel |> Async.RunSynchronously |> ignore
-    mre.Set() |> ignore
-
+    tasks |> Async.Parallel
+    |> Async.StartAsTask
+    |> fun task ->
+        mre.Set() |> ignore
+        task.Result
+    |> ignore
+    
     counter.Value |> should equal 1
