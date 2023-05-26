@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "classCrawler", "classCrawler\classCrawler.fsproj", "{27DE768D-AEE2-4E0E-8180-9E0CD28BBA38}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CrawlerTests", "CrawlerTests\CrawlerTests.fsproj", "{769AA9C3-05E6-44E6-9169-0F2F124C2348}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27DE768D-AEE2-4E0E-8180-9E0CD28BBA38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27DE768D-AEE2-4E0E-8180-9E0CD28BBA38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27DE768D-AEE2-4E0E-8180-9E0CD28BBA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27DE768D-AEE2-4E0E-8180-9E0CD28BBA38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{769AA9C3-05E6-44E6-9169-0F2F124C2348}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{769AA9C3-05E6-44E6-9169-0F2F124C2348}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{769AA9C3-05E6-44E6-9169-0F2F124C2348}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{769AA9C3-05E6-44E6-9169-0F2F124C2348}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
