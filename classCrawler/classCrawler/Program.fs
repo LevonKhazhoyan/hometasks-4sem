@@ -36,18 +36,16 @@ let searchClassInstancesAsync directoryPath =
             files
             |> Seq.map (fun file -> extractClassInstancesAsync file classNamePattern)
 
-        let results = ConcurrentBag<string>()
-        let! _ =
+        let! results =
             tasks
             |> Seq.map (fun task ->
                 async {
                     let! result = task
-                    Seq.iter results.Add result
+                    return result
                 })
             |> Async.Parallel
-            |> Async.Ignore
-
-        return results
+            
+        return results |> Seq.concat
     }
     
 [<EntryPoint>]
